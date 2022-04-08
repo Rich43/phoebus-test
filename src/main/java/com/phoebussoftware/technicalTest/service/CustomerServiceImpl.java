@@ -1,6 +1,5 @@
 package com.phoebussoftware.technicalTest.service;
 
-import com.phoebussoftware.technicalTest.DTO.AccountDTO;
 import com.phoebussoftware.technicalTest.DTO.CustomerDTO;
 import com.phoebussoftware.technicalTest.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -15,11 +14,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomer(final Long customerId) {
-        return null;
-    }
-
-    @Override
-    public AccountDTO getAccountByCustomerID(final Long customerId) {
         return null;
     }
 

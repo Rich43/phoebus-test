@@ -46,7 +46,7 @@ class CustomerServiceImplTest {
                 singletonList(accountEntity)
         );
         when(customerRepository.findById(1)).thenReturn(of(customerEntity));
-        CustomerDTO customerDTO = customerService.getCustomer(1L);
+        CustomerDTO customerDTO = customerService.getCustomer(CUSTOMER_ID);
         assertEquals(CUSTOMER_ID, customerDTO.customerId());
         assertEquals(FORE_NAME, customerDTO.foreName());
         assertEquals(SUR_NAME, customerDTO.surName());
@@ -54,11 +54,6 @@ class CustomerServiceImplTest {
         assertEquals(1, customerDTO.accountDTOS().size());
         assertEquals(ACCOUNT_ID, customerDTO.accountDTOS().get(0).accountId());
         assertEquals(ACCOUNT_NUMBER, customerDTO.accountDTOS().get(0).accountNumber());
-    }
-
-    @Test
-    void getAccountByCustomerID() {
-
     }
 
     @Test
