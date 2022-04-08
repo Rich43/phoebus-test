@@ -44,3 +44,7 @@ depending on your experience with the spring framework.
 We respect your time so please do as much as you can in the time allowed;
 please don’t aim for perfection but please do finish with a
 runnable project / docker image to a production ready standard.
+
+### Notes
+
+You can view the swagger ui at: http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config
