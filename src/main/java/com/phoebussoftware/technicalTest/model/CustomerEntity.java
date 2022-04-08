@@ -1,23 +1,13 @@
 package com.phoebussoftware.technicalTest.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "CUSTOMER")
 public class CustomerEntity {
@@ -27,4 +17,57 @@ public class CustomerEntity {
   Date dataOfBirth;
 
   @OneToMany List<AccountEntity> accountEntities;
+
+  public CustomerEntity() {
+  }
+
+  public CustomerEntity(final Long customerId, final String foreName,
+                        final String surName, final Date dataOfBirth,
+                        final List<AccountEntity> accountEntities) {
+    this.customerId = customerId;
+    this.foreName = foreName;
+    this.surName = surName;
+    this.dataOfBirth = dataOfBirth;
+    this.accountEntities = accountEntities;
+  }
+
+  public Long getCustomerId() {
+    return customerId;
+  }
+
+  public void setCustomerId(Long customerId) {
+    this.customerId = customerId;
+  }
+
+  public String getForeName() {
+    return foreName;
+  }
+
+  public void setForeName(String foreName) {
+    this.foreName = foreName;
+  }
+
+  public String getSurName() {
+    return surName;
+  }
+
+  public void setSurName(String surName) {
+    this.surName = surName;
+  }
+
+  public Date getDataOfBirth() {
+    return dataOfBirth;
+  }
+
+  public void setDataOfBirth(Date dataOfBirth) {
+    this.dataOfBirth = dataOfBirth;
+  }
+
+  public List<AccountEntity> getAccountEntities() {
+    return accountEntities;
+  }
+
+  public void setAccountEntities(List<AccountEntity> accountEntities) {
+    this.accountEntities = accountEntities;
+  }
 }

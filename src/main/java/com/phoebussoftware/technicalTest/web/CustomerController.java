@@ -9,22 +9,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
+
+import static java.util.Collections.emptyList;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-
   @GetMapping("/{customerId}")
-  public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer customerId) {
-    return ResponseEntity.ok(CustomerDTO.builder().build());
+  public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable final Long customerId) {
+    return ok(new CustomerDTO(customerId, "", "", new Date(), emptyList()));
   }
 
   @GetMapping("/account/{customerId}")
-  public ResponseEntity<List<AccountDTO>> getAccountsByCustomerId(
-      @PathVariable Integer customerId) {
-
-    List<AccountDTO> accountDTOS = List.of(AccountDTO.builder().build());
+  public ResponseEntity<List<AccountDTO>> getAccountsByCustomerId(@PathVariable final Long customerId) {
+    final List<AccountDTO> accountDTOS = List.of(new AccountDTO(0L, new CustomerDTO(customerId, "", "", new Date(), emptyList()), 0));
     return new ResponseEntity<>(accountDTOS, HttpStatus.OK);
   }
 }
