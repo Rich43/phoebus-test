@@ -7,6 +7,6 @@ public record CustomerDTO (
   Long customerId,
   String foreName,
   String surName,
-  Date dataOfBirth,
+  Date dateOfBirth,
   List<AccountDTO> accountDTOS
 ){}

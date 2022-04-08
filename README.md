@@ -4,7 +4,7 @@ Know Your Customer
 ## Java Technical Test
 
 Within the banking industry we need to validate customer details against source systems to ensure a customer is who they say they are.
-For administrators we would require lookups to validate customer details. We might also need to validate that front-end input matches back-end business logic.
+For administrators, we would require lookups to validate customer details. We might also need to validate that front-end input matches back-end business logic.
 Using Spring Boot and a database technology of your choice, create a new RESTful API with end points to carry out the following functions:
 
 ### Step One

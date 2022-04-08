@@ -3,7 +3,9 @@ package com.phoebussoftware.technicalTest.service;
 import com.phoebussoftware.technicalTest.DTO.AccountDTO;
 import com.phoebussoftware.technicalTest.DTO.CustomerDTO;
 import com.phoebussoftware.technicalTest.repository.CustomerRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 

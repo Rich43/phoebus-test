@@ -12,19 +12,19 @@ public class CustomerEntity {
   @Id Long customerId;
   @NotNull @Column(nullable = false) String foreName;
   @NotNull @Column(nullable = false) String surName;
-  @NotNull @Column(nullable = false) Date dataOfBirth;
+  @NotNull @Column(nullable = false) Date dateOfBirth;
   @OneToMany List<AccountEntity> accountEntities;
 
   public CustomerEntity() {
   }
 
   public CustomerEntity(final Long customerId, final String foreName,
-                        final String surName, final Date dataOfBirth,
+                        final String surName, final Date dateOfBirth,
                         final List<AccountEntity> accountEntities) {
     this.customerId = customerId;
     this.foreName = foreName;
     this.surName = surName;
-    this.dataOfBirth = dataOfBirth;
+    this.dateOfBirth = dateOfBirth;
     this.accountEntities = accountEntities;
   }
 
@@ -52,12 +52,12 @@ public class CustomerEntity {
     this.surName = surName;
   }
 
-  public Date getDataOfBirth() {
-    return dataOfBirth;
+  public Date getDateOfBirth() {
+    return dateOfBirth;
   }
 
-  public void setDataOfBirth(Date dataOfBirth) {
-    this.dataOfBirth = dataOfBirth;
+  public void setDateOfBirth(Date dataOfBirth) {
+    this.dateOfBirth = dataOfBirth;
   }
 
   public List<AccountEntity> getAccountEntities() {
