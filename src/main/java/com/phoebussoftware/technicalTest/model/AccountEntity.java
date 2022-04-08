@@ -1,15 +1,17 @@
 package com.phoebussoftware.technicalTest.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
 @Table(name = "ACCOUNT")
 public class AccountEntity {
   @Id Long accountId;
-  Integer accountNumber;
+  @NotNull @Column(nullable = false) Integer accountNumber;
 
   public AccountEntity() {
   }

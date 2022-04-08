@@ -1,10 +1,8 @@
 package com.phoebussoftware.technicalTest.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -12,9 +10,9 @@ import java.util.List;
 @Table(name = "CUSTOMER")
 public class CustomerEntity {
   @Id Long customerId;
-  String foreName;
-  String surName;
-  Date dataOfBirth;
+  @NotNull @Column(nullable = false) String foreName;
+  @NotNull @Column(nullable = false) String surName;
+  @NotNull @Column(nullable = false) Date dataOfBirth;
 
   @OneToMany List<AccountEntity> accountEntities;
 
