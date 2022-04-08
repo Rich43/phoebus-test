@@ -13,7 +13,6 @@ public class CustomerEntity {
   @NotNull @Column(nullable = false) String foreName;
   @NotNull @Column(nullable = false) String surName;
   @NotNull @Column(nullable = false) Date dataOfBirth;
-
   @OneToMany List<AccountEntity> accountEntities;
 
   public CustomerEntity() {
