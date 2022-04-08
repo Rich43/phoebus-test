@@ -4,5 +4,5 @@ import com.phoebussoftware.technicalTest.DTO.AccountDTO;
 
 public interface AccountService {
     AccountDTO getAccount(Long accountId);
-    void createAccount(AccountDTO accountDTO);
+    Long createAccount(Long customerId, AccountDTO accountDTO);
 }

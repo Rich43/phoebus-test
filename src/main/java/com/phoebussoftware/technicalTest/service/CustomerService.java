@@ -4,5 +4,5 @@ import com.phoebussoftware.technicalTest.DTO.CustomerDTO;
 
 public interface CustomerService {
     CustomerDTO getCustomer(Long customerId);
-    void createCustomer(CustomerDTO customerDTO);
+    Long createCustomer(CustomerDTO customerDTO);
 }

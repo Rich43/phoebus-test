@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void createCustomer(final CustomerDTO customerDTO) {
-
+    public Long createCustomer(final CustomerDTO customerDTO) {
+        return null;
     }
 }
