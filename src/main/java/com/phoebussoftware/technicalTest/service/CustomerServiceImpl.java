@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static java.util.Collections.emptyList;
+import static com.phoebussoftware.technicalTest.factories.CustomerEntityFactory.createCustomerEntity;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -40,12 +40,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Long createCustomer(final CustomerDTO customerDTO) {
-        final CustomerEntity customerEntity = new CustomerEntity(
-                null,
+        final CustomerEntity customerEntity = createCustomerEntity(
                 customerDTO.foreName(),
                 customerDTO.surName(),
-                customerDTO.dateOfBirth(),
-                emptyList()
+                customerDTO.dateOfBirth()
         );
         CustomerEntity savedCustomer = customerRepository.save(customerEntity);
         return savedCustomer.getCustomerId();

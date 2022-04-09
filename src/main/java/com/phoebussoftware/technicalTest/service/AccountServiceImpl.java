@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.phoebussoftware.technicalTest.factories.AccountEntityFactory.createAccountEntity;
+
 @Service
 public class AccountServiceImpl implements AccountService {
     private final CustomerRepository customerRepository;
@@ -35,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
         if (optionalCustomerEntity.isPresent()) {
             final CustomerEntity customerEntity = optionalCustomerEntity.get();
             // Todo: Add better exception handling to give the user more information
-            final AccountEntity accountEntity = new AccountEntity(null, accountDTO.accountNumber());
+            final AccountEntity accountEntity = createAccountEntity(accountDTO.accountNumber());
             AccountEntity savedAccountEntity = accountRepository.save(accountEntity);
             customerEntity.addAccountEntity(savedAccountEntity);
             customerRepository.save(customerEntity);
