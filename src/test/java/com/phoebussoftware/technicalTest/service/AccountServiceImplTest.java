@@ -1,6 +1,7 @@
 package com.phoebussoftware.technicalTest.service;
 
 import com.phoebussoftware.technicalTest.DTO.AccountDTO;
+import com.phoebussoftware.technicalTest.factories.AccountEntityFactory;
 import com.phoebussoftware.technicalTest.model.AccountEntity;
 import com.phoebussoftware.technicalTest.model.CustomerEntity;
 import com.phoebussoftware.technicalTest.repository.AccountRepository;
@@ -9,11 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
+import static com.phoebussoftware.technicalTest.factories.AccountEntityFactory.createAccountEntity;
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -53,23 +57,28 @@ class AccountServiceImplTest {
 
     @Test
     void createAccount() {
-        // Arrange
-        final Date dateOfBirth = new Date();
-        final AccountEntity accountEntity = new AccountEntity(ACCOUNT_ID, ACCOUNT_NUMBER);
-        final CustomerEntity customerEntity = new CustomerEntity(
-                CUSTOMER_ID,
-                FORE_NAME,
-                SUR_NAME,
-                dateOfBirth,
-                singletonList(accountEntity)
-        );
-        when(accountRepository.save(accountEntity)).thenReturn(accountEntity);
-        when(customerRepository.findByCustomerId(CUSTOMER_ID)).thenReturn(Optional.of(customerEntity));
-        // Act
-        final Long accountId = accountService.createAccount(CUSTOMER_ID, new AccountDTO(ACCOUNT_ID, ACCOUNT_NUMBER));
-        // Assert
-        verify(customerRepository, times(1)).findByCustomerId(CUSTOMER_ID);
-        verify(accountRepository, times(1)).save(accountEntity);
-        assertEquals(accountId, ACCOUNT_ID);
+        try (MockedStatic<AccountEntityFactory> mocked = mockStatic(AccountEntityFactory.class)) {
+            // Arrange
+            final Date dateOfBirth = new Date();
+            final AccountEntity accountEntity = new AccountEntity(ACCOUNT_ID, ACCOUNT_NUMBER);
+            final CustomerEntity customerEntity = new CustomerEntity(
+                    CUSTOMER_ID,
+                    FORE_NAME,
+                    SUR_NAME,
+                    dateOfBirth,
+                    new ArrayList<>(singletonList(accountEntity))
+            );
+            mocked.when(
+                    () -> createAccountEntity(ACCOUNT_NUMBER)
+            ).thenReturn(accountEntity);
+            when(accountRepository.save(accountEntity)).thenReturn(accountEntity);
+            when(customerRepository.findByCustomerId(CUSTOMER_ID)).thenReturn(Optional.of(customerEntity));
+            // Act
+            final Long accountId = accountService.createAccount(CUSTOMER_ID, new AccountDTO(ACCOUNT_ID, ACCOUNT_NUMBER));
+            // Assert
+            verify(customerRepository, times(1)).findByCustomerId(CUSTOMER_ID);
+            verify(accountRepository, times(1)).save(accountEntity);
+            assertEquals(accountId, ACCOUNT_ID);
+        }
     }
 }

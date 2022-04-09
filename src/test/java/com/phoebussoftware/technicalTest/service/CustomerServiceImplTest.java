@@ -2,6 +2,7 @@ package com.phoebussoftware.technicalTest.service;
 
 import com.phoebussoftware.technicalTest.DTO.AccountDTO;
 import com.phoebussoftware.technicalTest.DTO.CustomerDTO;
+import com.phoebussoftware.technicalTest.factories.CustomerEntityFactory;
 import com.phoebussoftware.technicalTest.model.AccountEntity;
 import com.phoebussoftware.technicalTest.model.CustomerEntity;
 import com.phoebussoftware.technicalTest.repository.CustomerRepository;
@@ -9,10 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
 
+import static com.phoebussoftware.technicalTest.factories.CustomerEntityFactory.createCustomerEntity;
 import static java.util.Collections.singletonList;
 import static java.util.Optional.of;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,35 +66,41 @@ class CustomerServiceImplTest {
 
     @Test
     void createCustomer() {
-        // Arrange
-        final Date dateOfBirth = new Date();
-        final AccountEntity accountEntity = new AccountEntity(ACCOUNT_ID, ACCOUNT_NUMBER);
-        final CustomerEntity customerEntity = new CustomerEntity(
-                null,
-                FORE_NAME,
-                SUR_NAME,
-                dateOfBirth,
-                singletonList(accountEntity)
-        );
-        final CustomerEntity customerEntitySaved = new CustomerEntity(
-                CUSTOMER_ID,
-                FORE_NAME,
-                SUR_NAME,
-                dateOfBirth,
-                singletonList(accountEntity)
-        );
-        when(customerRepository.save(customerEntity)).thenReturn(customerEntitySaved);
-        final CustomerDTO customerDTOOutput = new CustomerDTO(
-                CUSTOMER_ID,
-                FORE_NAME,
-                SUR_NAME,
-                dateOfBirth,
-                singletonList(new AccountDTO(ACCOUNT_ID, ACCOUNT_NUMBER))
-        );
-        // Act
-        final Long customerId = customerService.createCustomer(customerDTOOutput);
-        // Assert
-        assertEquals(CUSTOMER_ID, customerId);
-        verify(customerRepository, times(1)).save(customerEntity);
+        try (MockedStatic<CustomerEntityFactory> mocked = mockStatic(CustomerEntityFactory.class)) {
+
+            // Arrange
+            final Date dateOfBirth = new Date();
+            final AccountEntity accountEntity = new AccountEntity(ACCOUNT_ID, ACCOUNT_NUMBER);
+            final CustomerEntity customerEntity = new CustomerEntity(
+                    null,
+                    FORE_NAME,
+                    SUR_NAME,
+                    dateOfBirth,
+                    singletonList(accountEntity)
+            );
+            mocked.when(
+                    () -> createCustomerEntity(FORE_NAME, SUR_NAME, dateOfBirth)
+            ).thenReturn(customerEntity);
+            final CustomerEntity customerEntitySaved = new CustomerEntity(
+                    CUSTOMER_ID,
+                    FORE_NAME,
+                    SUR_NAME,
+                    dateOfBirth,
+                    singletonList(accountEntity)
+            );
+            when(customerRepository.save(customerEntity)).thenReturn(customerEntitySaved);
+            final CustomerDTO customerDTOOutput = new CustomerDTO(
+                    CUSTOMER_ID,
+                    FORE_NAME,
+                    SUR_NAME,
+                    dateOfBirth,
+                    singletonList(new AccountDTO(ACCOUNT_ID, ACCOUNT_NUMBER))
+            );
+            // Act
+            final Long customerId = customerService.createCustomer(customerDTOOutput);
+            // Assert
+            assertEquals(CUSTOMER_ID, customerId);
+            verify(customerRepository, times(1)).save(customerEntity);
+        }
     }
 }
