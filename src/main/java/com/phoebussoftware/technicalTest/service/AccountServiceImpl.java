@@ -39,6 +39,7 @@ public class AccountServiceImpl implements AccountService {
             AccountEntity savedAccountEntity = accountRepository.save(accountEntity);
             customerEntity.addAccountEntity(savedAccountEntity);
             customerRepository.save(customerEntity);
+            return savedAccountEntity.getAccountId();
         }
         return null;
     }

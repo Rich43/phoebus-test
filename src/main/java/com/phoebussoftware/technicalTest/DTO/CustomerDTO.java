@@ -8,5 +8,5 @@ public record CustomerDTO (
   String foreName,
   String surName,
   Date dateOfBirth,
-  List<AccountDTO> accountDTOS
+  List<AccountDTO> accounts
 ){}

@@ -56,9 +56,9 @@ class CustomerServiceImplTest {
         assertEquals(FORE_NAME, customerDTO.foreName());
         assertEquals(SUR_NAME, customerDTO.surName());
         assertEquals(dateOfBirth, customerDTO.dateOfBirth());
-        assertEquals(1, customerDTO.accountDTOS().size());
-        assertEquals(ACCOUNT_ID, customerDTO.accountDTOS().get(0).accountId());
-        assertEquals(ACCOUNT_NUMBER, customerDTO.accountDTOS().get(0).accountNumber());
+        assertEquals(1, customerDTO.accounts().size());
+        assertEquals(ACCOUNT_ID, customerDTO.accounts().get(0).accountId());
+        assertEquals(ACCOUNT_NUMBER, customerDTO.accounts().get(0).accountNumber());
     }
 
     @Test

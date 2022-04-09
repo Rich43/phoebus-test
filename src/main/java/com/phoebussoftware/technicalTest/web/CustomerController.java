@@ -27,7 +27,7 @@ public class CustomerController {
 
   @GetMapping("/account/{customerId}")
   public ResponseEntity<List<AccountDTO>> getAccountsByCustomerId(@PathVariable final Long customerId) {
-    return new ResponseEntity<>(customerService.getCustomer(customerId).accountDTOS(), HttpStatus.OK);
+    return new ResponseEntity<>(customerService.getCustomer(customerId).accounts(), HttpStatus.OK);
   }
 
   @PostMapping("/customer/create")
