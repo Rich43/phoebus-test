@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "CUSTOMER")
 public class CustomerEntity {
-  @Id Long customerId;
+  @Id @GeneratedValue(strategy=GenerationType.IDENTITY) Long customerId;
   @NotNull @Column(nullable = false) String foreName;
   @NotNull @Column(nullable = false) String surName;
   @NotNull @Column(nullable = false) Date dateOfBirth;

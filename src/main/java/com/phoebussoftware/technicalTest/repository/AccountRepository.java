@@ -3,4 +3,8 @@ package com.phoebussoftware.technicalTest.repository;
 import com.phoebussoftware.technicalTest.model.AccountEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface AccountRepository extends CrudRepository<AccountEntity, Integer> {}
+import java.util.Optional;
+
+public interface AccountRepository extends CrudRepository<AccountEntity, Integer> {
+    Optional<AccountEntity> findById(Long accountId);
+}

@@ -21,7 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomer(final Long customerId) {
-        final Optional<CustomerEntity> optionalCustomerEntity = customerRepository.findById(customerId.intValue());
+        final Optional<CustomerEntity> optionalCustomerEntity = customerRepository.findById(customerId);
         if (optionalCustomerEntity.isPresent()) {
             final CustomerEntity customerEntity = optionalCustomerEntity.get();
             return new CustomerDTO(
@@ -47,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customerDTO.dateOfBirth(),
                 emptyList()
         );
-        customerRepository.save(customerEntity);
-        return customerEntity.getCustomerId();
+        CustomerEntity savedCustomer = customerRepository.save(customerEntity);
+        return savedCustomer.getCustomerId();
     }
 }

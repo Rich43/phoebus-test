@@ -25,7 +25,6 @@ class CustomerServiceImplTest {
     public static final long CUSTOMER_ID = 1L;
     public static final String FORE_NAME = "John";
     public static final String SUR_NAME = "Doe";
-    public static final int CUSTOMER_ID_INT = 1;
 
     @Mock
     CustomerRepository customerRepository;
@@ -48,11 +47,11 @@ class CustomerServiceImplTest {
                 dateOfBirth,
                 singletonList(accountEntity)
         );
-        when(customerRepository.findById(CUSTOMER_ID_INT)).thenReturn(of(customerEntity));
+        when(customerRepository.findById(CUSTOMER_ID)).thenReturn(of(customerEntity));
         // Act
         final CustomerDTO customerDTO = customerService.getCustomer(CUSTOMER_ID);
         // Assert
-        verify(customerRepository, times(1)).findById(CUSTOMER_ID_INT);
+        verify(customerRepository, times(1)).findById(CUSTOMER_ID);
         assertEquals(CUSTOMER_ID, customerDTO.customerId());
         assertEquals(FORE_NAME, customerDTO.foreName());
         assertEquals(SUR_NAME, customerDTO.surName());
@@ -68,14 +67,21 @@ class CustomerServiceImplTest {
         final Date dateOfBirth = new Date();
         final AccountEntity accountEntity = new AccountEntity(ACCOUNT_ID, ACCOUNT_NUMBER);
         final CustomerEntity customerEntity = new CustomerEntity(
+                null,
+                FORE_NAME,
+                SUR_NAME,
+                dateOfBirth,
+                singletonList(accountEntity)
+        );
+        final CustomerEntity customerEntitySaved = new CustomerEntity(
                 CUSTOMER_ID,
                 FORE_NAME,
                 SUR_NAME,
                 dateOfBirth,
                 singletonList(accountEntity)
         );
-        when(customerRepository.save(customerEntity)).thenReturn(customerEntity);
-        final CustomerDTO customerDTO = new CustomerDTO(
+        when(customerRepository.save(customerEntity)).thenReturn(customerEntitySaved);
+        final CustomerDTO customerDTOOutput = new CustomerDTO(
                 CUSTOMER_ID,
                 FORE_NAME,
                 SUR_NAME,
@@ -83,7 +89,7 @@ class CustomerServiceImplTest {
                 singletonList(new AccountDTO(ACCOUNT_ID, ACCOUNT_NUMBER))
         );
         // Act
-        final Long customerId = customerService.createCustomer(customerDTO);
+        final Long customerId = customerService.createCustomer(customerDTOOutput);
         // Assert
         assertEquals(CUSTOMER_ID, customerId);
         verify(customerRepository, times(1)).save(customerEntity);

@@ -3,4 +3,8 @@ package com.phoebussoftware.technicalTest.repository;
 import com.phoebussoftware.technicalTest.model.CustomerEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface CustomerRepository extends CrudRepository<CustomerEntity, Integer> {}
+import java.util.Optional;
+
+public interface CustomerRepository extends CrudRepository<CustomerEntity, Integer> {
+    Optional<CustomerEntity> findById(Long customerId);
+}

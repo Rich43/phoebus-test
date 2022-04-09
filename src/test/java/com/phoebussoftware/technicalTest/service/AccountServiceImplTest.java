@@ -22,9 +22,7 @@ import static org.mockito.Mockito.*;
 class AccountServiceImplTest {
     public static final int ACCOUNT_NUMBER = 456;
     public static final long ACCOUNT_ID = 123L;
-    public static final int ACCOUNT_ID_INT = 123;
     public static final long CUSTOMER_ID = 789L;
-    public static final int CUSTOMER_ID_INT = 789;
     public static final String FORE_NAME = "John";
     public static final String SUR_NAME = "Doe";
 
@@ -43,12 +41,12 @@ class AccountServiceImplTest {
     void getAccount() {
         // Arrange
         final AccountEntity accountEntity = new AccountEntity(ACCOUNT_ID, ACCOUNT_NUMBER);
-        when(accountRepository.findById(ACCOUNT_ID_INT))
+        when(accountRepository.findById(ACCOUNT_ID))
                 .thenReturn(Optional.of(accountEntity));
         // Act
         final AccountDTO account = accountService.getAccount(ACCOUNT_ID);
         // Assert
-        verify(accountRepository, times(1)).findById(ACCOUNT_ID_INT);
+        verify(accountRepository, times(1)).findById(ACCOUNT_ID);
         assertEquals(account.accountNumber(), ACCOUNT_NUMBER);
         assertEquals(account.accountId(), ACCOUNT_ID);
     }
@@ -66,11 +64,11 @@ class AccountServiceImplTest {
                 singletonList(accountEntity)
         );
         when(accountRepository.save(accountEntity)).thenReturn(accountEntity);
-        when(customerRepository.findById(CUSTOMER_ID_INT)).thenReturn(Optional.of(customerEntity));
+        when(customerRepository.findById(CUSTOMER_ID)).thenReturn(Optional.of(customerEntity));
         // Act
         final Long accountId = accountService.createAccount(CUSTOMER_ID, new AccountDTO(ACCOUNT_ID, ACCOUNT_NUMBER));
         // Assert
-        verify(customerRepository, times(1)).findById(CUSTOMER_ID_INT);
+        verify(customerRepository, times(1)).findById(CUSTOMER_ID);
         verify(accountRepository, times(1)).save(accountEntity);
         assertEquals(accountId, ACCOUNT_ID);
     }
