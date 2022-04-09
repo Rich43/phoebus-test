@@ -25,7 +25,7 @@ public class CustomerController {
 
   @GetMapping("/account/{customerId}")
   public ResponseEntity<List<AccountDTO>> getAccountsByCustomerId(@PathVariable final Long customerId) {
-    final List<AccountDTO> accountDTOS = List.of(new AccountDTO(0L, new CustomerDTO(customerId, "", "", new Date(), emptyList()), 0));
+    final List<AccountDTO> accountDTOS = List.of(new AccountDTO(0L, 0));
     return new ResponseEntity<>(accountDTOS, HttpStatus.OK);
   }
 }
