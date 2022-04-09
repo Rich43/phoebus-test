@@ -21,7 +21,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDTO getAccount(final Long accountId) {
-        final Optional<AccountEntity> accountEntityOptional = accountRepository.findById(accountId);
+        final Optional<AccountEntity> accountEntityOptional = accountRepository.findByAccountId(accountId);
         if (accountEntityOptional.isPresent()) {
             final AccountEntity accountEntity = accountEntityOptional.get();
             return new AccountDTO(accountEntity.getAccountId(), accountEntity.getAccountNumber());

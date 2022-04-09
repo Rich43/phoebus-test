@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface CustomerRepository extends CrudRepository<CustomerEntity, Integer> {
-    Optional<CustomerEntity> findById(Long customerId);
+    Optional<CustomerEntity> findByCustomerId(Long customerId);
 }

@@ -41,12 +41,12 @@ class AccountServiceImplTest {
     void getAccount() {
         // Arrange
         final AccountEntity accountEntity = new AccountEntity(ACCOUNT_ID, ACCOUNT_NUMBER);
-        when(accountRepository.findById(ACCOUNT_ID))
+        when(accountRepository.findByAccountId(ACCOUNT_ID))
                 .thenReturn(Optional.of(accountEntity));
         // Act
         final AccountDTO account = accountService.getAccount(ACCOUNT_ID);
         // Assert
-        verify(accountRepository, times(1)).findById(ACCOUNT_ID);
+        verify(accountRepository, times(1)).findByAccountId(ACCOUNT_ID);
         assertEquals(account.accountNumber(), ACCOUNT_NUMBER);
         assertEquals(account.accountId(), ACCOUNT_ID);
     }
@@ -64,11 +64,11 @@ class AccountServiceImplTest {
                 singletonList(accountEntity)
         );
         when(accountRepository.save(accountEntity)).thenReturn(accountEntity);
-        when(customerRepository.findById(CUSTOMER_ID)).thenReturn(Optional.of(customerEntity));
+        when(customerRepository.findByCustomerId(CUSTOMER_ID)).thenReturn(Optional.of(customerEntity));
         // Act
         final Long accountId = accountService.createAccount(CUSTOMER_ID, new AccountDTO(ACCOUNT_ID, ACCOUNT_NUMBER));
         // Assert
-        verify(customerRepository, times(1)).findById(CUSTOMER_ID);
+        verify(customerRepository, times(1)).findByCustomerId(CUSTOMER_ID);
         verify(accountRepository, times(1)).save(accountEntity);
         assertEquals(accountId, ACCOUNT_ID);
     }

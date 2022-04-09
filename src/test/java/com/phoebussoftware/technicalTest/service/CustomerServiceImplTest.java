@@ -47,11 +47,11 @@ class CustomerServiceImplTest {
                 dateOfBirth,
                 singletonList(accountEntity)
         );
-        when(customerRepository.findById(CUSTOMER_ID)).thenReturn(of(customerEntity));
+        when(customerRepository.findByCustomerId(CUSTOMER_ID)).thenReturn(of(customerEntity));
         // Act
         final CustomerDTO customerDTO = customerService.getCustomer(CUSTOMER_ID);
         // Assert
-        verify(customerRepository, times(1)).findById(CUSTOMER_ID);
+        verify(customerRepository, times(1)).findByCustomerId(CUSTOMER_ID);
         assertEquals(CUSTOMER_ID, customerDTO.customerId());
         assertEquals(FORE_NAME, customerDTO.foreName());
         assertEquals(SUR_NAME, customerDTO.surName());
