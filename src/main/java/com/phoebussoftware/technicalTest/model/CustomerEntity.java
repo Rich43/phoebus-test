@@ -67,4 +67,8 @@ public class CustomerEntity {
   public void setAccountEntities(List<AccountEntity> accountEntities) {
     this.accountEntities = accountEntities;
   }
+
+  public void addAccountEntity(AccountEntity accountEntity) {
+    this.accountEntities.add(accountEntity);
+  }
 }
