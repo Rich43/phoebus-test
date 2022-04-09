@@ -31,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Long createAccount(Long customerId, AccountDTO accountDTO) {
-        final Optional<CustomerEntity> optionalCustomerEntity = customerRepository.findById(customerId.intValue());
+        final Optional<CustomerEntity> optionalCustomerEntity = customerRepository.findByCustomerId(customerId);
         if (optionalCustomerEntity.isPresent()) {
             final CustomerEntity customerEntity = optionalCustomerEntity.get();
             // Todo: Add better exception handling to give the user more information
