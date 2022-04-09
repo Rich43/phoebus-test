@@ -36,8 +36,8 @@ public class AccountServiceImpl implements AccountService {
             final CustomerEntity customerEntity = optionalCustomerEntity.get();
             // Todo: Add better exception handling to give the user more information
             final AccountEntity accountEntity = new AccountEntity(null, accountDTO.accountNumber());
-            accountRepository.save(accountEntity);
-            customerEntity.addAccountEntity(accountEntity);
+            AccountEntity savedAccountEntity = accountRepository.save(accountEntity);
+            customerEntity.addAccountEntity(savedAccountEntity);
             customerRepository.save(customerEntity);
         }
         return null;
